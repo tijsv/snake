@@ -1,7 +1,12 @@
+body, canvas, h1, h2, h3, h4, {
+  margin: 0;
+  padding: 0;
+}
+
 p {
   color: red;
 }
 
 #board {
-  border: 4px solid black;
+  border: 10px solid black;
 }

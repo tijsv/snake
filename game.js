@@ -1,28 +1,61 @@
 class Game {
   constructor(options) {
     this.options = options;
-    this.snake = new Snake(this.calculateSpeed());
+    this.snake = new Snake();
     this.board = new Board(options.board, this.snake);
     this.input = "up";
 
-    setInterval(() => {
-      this.setSnakeDirection();
+    this.useSettings();
 
-      if (!this.board.updateBoard()) {
-        this.snake.die();
-        alert('You died ma dude');
-        this.board.initBoard();
-      }
+    this.board.initBoard();
 
-    }, this.snake.getSpeed());
+    this.gameLoop();
 
   }
 
+  gameLoop() {
+    setTimeout(() => {
+
+      this.setSnakeDirection();
+
+      if(!this.board.updateBoard()) {
+        
+        alert('You died =(');
+        this.snake.die();
+        this.useSettings();
+        this.board.initBoard();
+      }
+
+      if(this.snake.getLength() === this.board.points + 1) {
+        alert('You won. Let\'s try that again.');
+        this.snake.die();
+        this.snake.getSpeed() === 25 ? alert('You reached max speed. That doesn\'t mean you have to stop playing though =)') : this.snake.setSpeed(this.snake.getSpeed()/2);
+        this.board.setPoints(this.board.getPoints()*2);
+        this.board.initBoard();
+      }
+
+      this.gameLoop();
+
+    }, this.snake.getSpeed());
+  }
+
+  useSettings() {
+    this.snake.setSpeed(this.calculateSpeed());
+    this.board.setPoints(this.options.points);
+  }
+
   calculateSpeed() {
-    if(this.options.speed === "normal") {
-      return 100;
-    } else {
-      return 1000;
+    switch(this.options.speed) {
+      case "wtf":
+        return 25;
+      case "insane":
+        return 50;
+      case "fast":
+        return 100;
+      case "normal":
+        return 200;
+      case "slow":
+        return 250;
     }
   }
 

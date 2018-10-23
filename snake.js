@@ -1,5 +1,5 @@
 class Snake {
-  constructor(speed, direction = "up", length = 1) {
+  constructor(speed = "normal", direction = "up", length = 1) {
     this.speed = speed;
     this.direction = direction;
     this.length = length;
@@ -10,10 +10,13 @@ class Snake {
   grow(position) {
     this.belly.push(position);
     this.length++;
+    
   }
 
   die() {
     this.positions = [];
+    this.length = 1;
+    this.belly = [];
   }
 
   move() {
@@ -67,7 +70,6 @@ class Snake {
   checkValid() {
     for(var i = 1; i < this.positions.length; i++) {
       if(this.positions[0].x === this.positions[i].x && this.positions[0].y === this.positions[i].y) {
-        console.log('YOU ATE YOURSELF =(');
         return false;
       }
     }
@@ -100,5 +102,9 @@ class Snake {
 
   setDirection(direction) {
     this.direction = direction;
+  }
+
+  setSpeed(speed) {
+    this.speed = speed;
   }
 }

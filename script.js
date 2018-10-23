@@ -1,6 +1,7 @@
 let options = {
   board: document.getElementById('board'),
-  speed: "normal"
+  speed: "normal",
+  points: 5
 }
 
 let game = new Game(options);
